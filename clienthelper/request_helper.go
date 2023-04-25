@@ -99,3 +99,36 @@ func GetHandler(factory func() APIExecutor) http.HandlerFunc {
 		executor.HandleResponse(ctx, response, err, NewAPIResponse(w))
 	}
 }
+
+// baseAPIExecutor is an implementation of the APIExecutor interface that provides
+// a default implementation of the Controller method and only implements the
+// HandleResponse method.
+type BaseAPIExecutor struct{}
+
+// NewBaseAPIExecutor creates a new instance of baseAPIExecutor.
+func NewBaseAPIExecutor() *BaseAPIExecutor {
+	return &BaseAPIExecutor{}
+}
+
+// HandleResponse takes in the result of the Controller method, any errors that occur,
+// and the APIResponse object to generate the HTTP response. It takes in an interface,
+// an error, and an APIResponse pointer and does not return anything.
+func (e *BaseAPIExecutor) HandleResponse(ctx context.IContext, response interface{}, err error, apiResponse *APIResponse) {
+	if err != nil {
+		// Set the error response
+		apiResponse.SetStatusCode(http.StatusInternalServerError).
+			GetResponse().SetStatusCode(http.StatusInternalServerError).
+			GetErrors().SetClientMessage("internal server error").AddError(NewErrorFromErr(err))
+	} else {
+		// Set the success response
+		apiResponse.SetStatusCode(http.StatusOK).
+			GetResponse().SetStatusCode(http.StatusOK).
+			SetData(response)
+	}
+
+	// Send the response
+	if err := apiResponse.Send(); err != nil {
+		// Handle error sending response
+		// This can be done by logging the error
+	}
+}
