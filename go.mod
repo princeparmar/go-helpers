@@ -1,4 +1,4 @@
-module github.com/princeparmar/go-helpers.git
+module github.com/princeparmar/go-helpers
 
 go 1.18
 

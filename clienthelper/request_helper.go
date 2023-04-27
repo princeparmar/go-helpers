@@ -5,7 +5,7 @@ package clienthelper
 import (
 	"net/http"
 
-	"github.com/princeparmar/go-helpers.git/context"
+	"github.com/princeparmar/go-helpers/context"
 )
 
 // APIExecutor defines an interface for executing API requests. It defines methods

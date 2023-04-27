@@ -2,8 +2,8 @@ package ginhelpers
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/princeparmar/go-helpers.git/clienthelper"
-	"github.com/princeparmar/go-helpers.git/context"
+	"github.com/princeparmar/go-helpers/clienthelper"
+	"github.com/princeparmar/go-helpers/context"
 )
 
 func ConvertContextToGinContext(g *gin.Context) context.IContext {
